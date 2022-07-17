@@ -12,13 +12,21 @@ export default function TopTabsNavigation() {
     return (
         <Tab.Navigator
             initialRouteName="Home"
-            // tabBarPosition="bottom"
             style={{
-                marginTop: StatusBar.currentHeight || 40,
+                marginTop: StatusBar.currentHeight || 30,
+            }}
+            screenOptions={{
+                swipeEnabled: false,
+                tabBarActiveTintColor: Colors.BLUEBLACK,
+                tabBarInactiveTintColor: Colors.BLACK,
             }}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Favoris" component={FavoriteScreen} />
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{ tabBarLabel: 'Movies' }}
+            />
+            <Tab.Screen name="Favorite" component={FavoriteScreen} />
         </Tab.Navigator>
     );
 }

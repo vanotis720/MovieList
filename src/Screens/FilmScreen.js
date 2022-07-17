@@ -6,26 +6,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { formatMinutesToHours } from "../helpers/cast";
 
 
-const movie = {
-    id: 1,
-    title: "The Shawshank Redemption juliette",
-    year: 1994,
-    rating: 9.2,
-    votes: 922,
-    overview: "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
-    poster: "https://images.unsplash.com/photo-1484995342839-a9eb42974616",
-    backdrop: "https://image.tmdb.org/t/p/w500/j9XKiZrVePdz2KdM8fq3IfooZHv.jpg",
-    genres: ["Drama"],
-    runtime: 142,
-    language: "en",
-    releaseDate: "1994-09-10",
-    revenue: "$1,890,816,829",
-    tagline: "Two imprisoned ",
-};
-
 const { width, height } = Dimensions.get("window");
 
-const FilmScreen = () => {
+const FilmScreen = ({ route, navigation }) => {
+
+    const { movie } = route.params;
+
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
@@ -114,7 +100,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,
-        marginTop: 30,
+        paddingVertical: 10,
     },
     cover: {
         flex: 2,
@@ -150,9 +136,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 10,
         paddingVertical: 10,
+
     },
     movieTitle: {
-        fontSize: 20,
+        fontSize: 22,
         flexWrap: "wrap",
         fontWeight: 'bold',
         color: Colors.BLUEBLACK,
@@ -193,7 +180,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     desciptionTitle: {
-        fontSize: 17,
+        fontSize: 20,
         color: Colors.BLUEBLACK,
         fontWeight: 'bold',
     },
@@ -206,7 +193,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     castTitle: {
-        fontSize: 17,
+        fontSize: 20,
         color: Colors.BLUEBLACK,
         fontWeight: 'bold',
     },

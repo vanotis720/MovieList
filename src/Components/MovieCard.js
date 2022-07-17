@@ -2,16 +2,20 @@ import React from "react";
 import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity } from "react-native";
 import Colors from "../utilities/Color";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 const MovieCard = ({ movie }) => {
+
+    const navigation = useNavigation();
+
     return (
         <TouchableOpacity
             style={styles.movie}
             onPress={() => {
-                alert("MovieCard: " + movie.title);
+                navigation.navigate("MovieDetail", { movie });
             }
             }>
             <Image source={{ uri: movie.poster }} style={styles.moviePoster} />

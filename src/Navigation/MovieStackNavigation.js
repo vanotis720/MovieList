@@ -1,24 +1,24 @@
 /* eslint-disable prettier/prettier */
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Tasks from '../Screens/Tasks';
-import Timer from '../Screens/Timer';
+import HomeScreen from '../Screens/HomeScreen';
+import FilmScreen from '../Screens/FilmScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function AppStackNavigation() {
+export default function MovieStackNavigation() {
     return (
-        <Stack.Navigator initialRouteName="Tasks">
+        <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
-                name="Tasks"
-                component={Tasks}
+                name="Home"
+                component={HomeScreen}
                 options={{
                     headerShown: false,
                 }}
             />
             <Stack.Screen
-                name="Timer"
-                component={Timer}
+                name="MovieDetail"
+                component={FilmScreen}
                 options={{
                     headerShown: false,
                 }}

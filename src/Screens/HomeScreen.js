@@ -89,7 +89,7 @@ const movies = [
     },
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.nowShowing}>

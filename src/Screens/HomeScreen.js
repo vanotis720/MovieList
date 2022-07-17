@@ -117,9 +117,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,
-        marginTop: StatusBar.currentHeight || 40,
-        marginBottom: 10,
-        marginHorizontal: 15,
+        paddingBottom: 10,
+        paddingHorizontal: 15,
     },
     appBar: {
         flex: 0.1,
@@ -127,15 +126,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE,
         justifyContent: 'space-between',
         paddingHorizontal: 20,
-    },
-    menu: {
-        flex: 0.5,
-        color: Colors.BLACK,
-    },
-    appBarTitle: {
-        flex: 0.5,
-        fontSize: 20,
-        color: Colors.BLUEBLACK,
     },
     nowShowing: {
         flex: 0.4,
@@ -152,7 +142,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     popular: {
-        flex: 0.5,
+        flex: 0.6,
     },
     popularContent: {
         flex: 1,

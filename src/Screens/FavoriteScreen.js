@@ -89,25 +89,35 @@ const movies = [
     },
 ];
 
-const HomeScreen = () => {
+const FavoriteScreen = () => {
     return (
         <View style={styles.container}>
+            <StatusBar style="white" />
+            <View style={styles.appBar}>
+                <MaterialCommunityIcons
+                    name="menu"
+                    size={30}
+                    style={styles.menu}
+                    onPress={() => { alert("menu") }}
+                />
+                <Text style={styles.appBarTitle}>Home</Text>
+            </View>
             <View style={styles.nowShowing}>
                 <Text style={styles.sectionTitle}>Latest Movies</Text>
-                <View style={styles.nowShowingContent}>
+                <ScrollView horizontal style={styles.nowShowingContent}>
                     <FlatList data={movies} horizontal
                         renderItem={({ item }) => <MovieCard movie={item} />}
                     />
-                </View>
+                </ScrollView>
             </View>
 
             <View style={styles.popular}>
                 <Text style={styles.sectionTitle}>Popular Movies</Text>
-                <View style={styles.popularContent}>
+                <ScrollView style={styles.popularContent}>
                     <FlatList data={movies}
                         renderItem={({ item }) => <MovieCardAlt movie={item} />}
                     />
-                </View>
+                </ScrollView>
             </View>
         </View>
     );
@@ -159,4 +169,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default FavoriteScreen;

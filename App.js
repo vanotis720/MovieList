@@ -1,9 +1,12 @@
-import FilmScreen from './src/Screens/FilmScreen';
-import HomeScreen from './src/Screens/HomeScreen';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import TopTabsNavigation from './src/Navigation/TopTabsNavigation';
 
 export default function App() {
-  return (
-    <FilmScreen />
-  );
+	return (
+		<NavigationContainer>
+			<TopTabsNavigation />
+		</NavigationContainer>
+	);
 }
 

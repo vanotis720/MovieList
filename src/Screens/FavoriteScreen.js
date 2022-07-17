@@ -93,31 +93,13 @@ const FavoriteScreen = () => {
     return (
         <View style={styles.container}>
             <StatusBar style="white" />
-            <View style={styles.appBar}>
-                <MaterialCommunityIcons
-                    name="menu"
-                    size={30}
-                    style={styles.menu}
-                    onPress={() => { alert("menu") }}
-                />
-                <Text style={styles.appBarTitle}>Home</Text>
-            </View>
-            <View style={styles.nowShowing}>
-                <Text style={styles.sectionTitle}>Latest Movies</Text>
-                <ScrollView horizontal style={styles.nowShowingContent}>
-                    <FlatList data={movies} horizontal
-                        renderItem={({ item }) => <MovieCard movie={item} />}
-                    />
-                </ScrollView>
-            </View>
-
             <View style={styles.popular}>
-                <Text style={styles.sectionTitle}>Popular Movies</Text>
-                <ScrollView style={styles.popularContent}>
+                <Text style={styles.sectionTitle}>Favorite Movies</Text>
+                <View style={styles.popularContent}>
                     <FlatList data={movies}
                         renderItem={({ item }) => <MovieCardAlt movie={item} />}
                     />
-                </ScrollView>
+                </View>
             </View>
         </View>
     );
@@ -127,29 +109,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,
-        marginTop: StatusBar.currentHeight || 40,
         marginBottom: 10,
-        marginHorizontal: 15,
-    },
-    appBar: {
-        flex: 0.1,
-        flexDirection: 'row',
-        backgroundColor: Colors.WHITE,
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
-    },
-    menu: {
-        flex: 0.5,
-        color: Colors.BLACK,
-    },
-    appBarTitle: {
-        flex: 0.5,
-        fontSize: 20,
-        color: Colors.BLUEBLACK,
-    },
-    nowShowing: {
-        flex: 0.4,
-        marginBottom: 10,
+        paddingHorizontal: 15,
     },
     sectionTitle: {
         fontSize: 20,
@@ -158,11 +119,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         fontWeight: 'bold',
     },
-    nowShowingContent: {
-        flex: 1,
-    },
     popular: {
-        flex: 0.5,
+        flex: 1,
     },
     popularContent: {
         flex: 1,

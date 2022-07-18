@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity } from "rea
 import Colors from "../utilities/Color";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { formatMinutesToHours } from "../helpers/cast";
+import { excerpt } from "../helpers/string";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -15,18 +16,18 @@ const MovieCardAlt = ({ movie }) => {
                 alert("MovieCardAlt: " + movie.title);
             }
             }>
-            <Image source={{ uri: movie.poster }} style={styles.moviePoster} />
+            <Image source={{ uri: 'http://image.tmdb.org/t/p/w500/' + movie.poster_path }} style={styles.moviePoster} />
             <View style={styles.movieInfo}>
                 <Text style={styles.movieTitle}>{movie.title}</Text>
                 <View style={styles.movieNote}>
                     <MaterialCommunityIcons name="star" size={15} color={Colors.YELLOW} />
-                    <Text style={styles.movieNoteText}>{movie.rating}/10</Text>
+                    <Text style={styles.movieNoteText}>{movie.vote_average}/10</Text>
                 </View>
-                <Text style={styles.movieOverview}>{movie.overview}</Text>
-                <View style={styles.movieNote}>
+                <Text style={styles.movieOverview}>{excerpt(movie.overview, 150)}</Text>
+                {/* <View style={styles.movieNote}>
                     <MaterialCommunityIcons name="clock" size={15} color={Colors.YELLOW} />
                     <Text style={styles.movieNoteText}>{formatMinutesToHours(movie.runtime)}</Text>
-                </View>
+                </View> */}
             </View>
         </TouchableOpacity>
     );

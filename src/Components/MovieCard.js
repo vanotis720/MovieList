@@ -11,6 +11,8 @@ const MovieCard = ({ movie }) => {
 
     const navigation = useNavigation();
 
+    const poster = (movie.poster_path) ? 'http://image.tmdb.org/t/p/w500/' + movie.poster_path : 'https://source.unsplash.com/random/500x250';
+
     return (
         <TouchableOpacity
             style={styles.movie}
@@ -18,11 +20,9 @@ const MovieCard = ({ movie }) => {
                 navigation.navigate("MovieDetail", { movie });
             }
             }>
-            <Image source={{ uri: movie.poster }} style={styles.moviePoster} />
-            <Text style={styles.movieTitle}>{movie.title}</Text>
-            <View style={styles.movieNote}>
-                <MaterialCommunityIcons name="star" size={20} color={Colors.YELLOW} />
-                <Text style={styles.movieNoteText}>{movie.rating}/10</Text>
+            <Image source={{ uri: poster }} style={styles.moviePoster} />
+            <View style={styles.titleCover}>
+                <Text style={styles.movieTitle}>{movie.title}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -31,29 +31,30 @@ const MovieCard = ({ movie }) => {
 const styles = StyleSheet.create({
     movie: {
         flex: 1,
-        width: width / 2.5,
-        marginHorizontal: 5,
+        marginHorizontal: 3,
         borderRadius: 10,
+        backgroundColor: Colors.YELLOW,
     },
     moviePoster: {
-        height: '80%',
+        height: '100%',
         width: '100%',
-        borderRadius: 5,
+        borderRadius: 10,
         resizeMode: 'cover',
-        marginBottom: 8,
+    },
+    titleCover: {
+        position: 'absolute',
+        bottom: 20,
+        left: 20,
+        backgroundColor: Colors.WHITE,
+        opacity: 1,
+        borderRadius: 5,
     },
     movieTitle: {
-        fontSize: 14,
+        fontSize: 20,
         fontWeight: 'bold',
         color: Colors.BLUEBLACK,
-    },
-    movieNote: {
-        flexDirection: 'row',
-    },
-    movieNoteText: {
-        marginBottom: 5,
-        fontSize: 12,
-        color: Colors.BLACK,
+        marginHorizontal: 10,
+        backgroundColor: Colors.WHITE,
     },
 });
 

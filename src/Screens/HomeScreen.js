@@ -1,115 +1,78 @@
-import React from "react";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Colors from "../utilities/Color";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MovieCard from "../Components/MovieCard";
 import MovieCardAlt from "../Components/MovieCardAlt";
-
-const movies = [
-    {
-        id: 1,
-        title: "The Shawshank Redemption juliette",
-        year: 1994,
-        rating: 9.2,
-        votes: 922,
-        overview: "Two imprisoned world of coca cola, where they must survive a cruel and unusual prison life.",
-        poster: "https://images.unsplash.com/photo-1484995342839-a9eb42974616",
-        backdrop: "https://image.tmdb.org/t/p/w500/j9XKiZrVePdz2KdM8fq3IfooZHv.jpg",
-        genres: ["Drama"],
-        runtime: 142,
-        language: "en",
-        releaseDate: "1994-09-10",
-        revenue: "$1,890,816,829",
-        tagline: "Two imprisoned ",
-    },
-    {
-        id: 2,
-        title: "The Godfather",
-        year: 1972,
-        rating: 9.2,
-        votes: 922,
-        overview: "Two imprisoned ",
-        poster: "https://media.giphy.com/media/R03zWv5p1oNSQd91EP/giphy.gif",
-        backdrop: "https://image.tmdb.org/t/p/w500/j9XKiZrVePdz2KdM8fq3IfooZHv.jpg",
-        genres: ["Drama"],
-        runtime: 142,
-        language: "en",
-        releaseDate: "1994-09-10",
-        revenue: "$1,890,816,829",
-        tagline: "Two imprisoned ",
-    },
-    {
-        id: 3,
-        title: "The Godfather",
-        year: 1972,
-        rating: 9.2,
-        votes: 922,
-        overview: "Two imprisoned ",
-        poster: "https://images.unsplash.com/photo-1484995342839-a9eb42974616",
-        backdrop: "https://image.tmdb.org/t/p/w500/j9XKiZrVePdz2KdM8fq3IfooZHv.jpg",
-        genres: ["Drama"],
-        runtime: 142,
-        language: "en",
-        releaseDate: "1994-09-10",
-        revenue: "$1,890,816,829",
-        tagline: "Two imprisoned ",
-    },
-    {
-        id: 4,
-        title: "The Godfather",
-        year: 1972,
-        rating: 9.2,
-        votes: 922,
-        overview: "Two imprisoned ",
-        poster: "https://img.icons8.com/color/240/000000/javascript--v1.png",
-        backdrop: "https://image.tmdb.org/t/p/w500/j9XKiZrVePdz2KdM8fq3IfooZHv.jpg",
-        genres: ["Drama"],
-        runtime: 142,
-        language: "en",
-        releaseDate: "1994-09-10",
-        revenue: "$1,890,816,829",
-        tagline: "Two imprisoned ",
-    },
-    {
-        id: 5,
-        title: "The Godfather",
-        year: 1972,
-        rating: 9.2,
-        votes: 922,
-        overview: "Two imprisoned ",
-        poster: "https://images.unsplash.com/photo-1484995342839-a9eb42974616",
-        backdrop: "https://image.tmdb.org/t/p/w500/j9XKiZrVePdz2KdM8fq3IfooZHv.jpg",
-        genres: ["Drama"],
-        runtime: 142,
-        language: "en",
-        releaseDate: "1994-09-10",
-        revenue: "$1,890,816,829",
-        tagline: "Two imprisoned ",
-    },
-];
+import { url, apiKey } from "../services/api";
+import Spinner from "../Components/Spinner";
 
 const HomeScreen = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.nowShowing}>
-                <Text style={styles.sectionTitle}>Latest Movies</Text>
-                <View style={styles.nowShowingContent}>
-                    <FlatList data={movies} horizontal
-                        renderItem={({ item }) => <MovieCard movie={item} />}
-                    />
-                </View>
-            </View>
 
-            <View style={styles.popular}>
-                <Text style={styles.sectionTitle}>Popular Movies</Text>
-                <View style={styles.popularContent}>
-                    <FlatList data={movies}
-                        renderItem={({ item }) => <MovieCardAlt movie={item} />}
-                    />
-                </View>
-            </View>
-        </View>
+    const [isLoading, setIsLoading] = useState(true);
+    const [results, setResults] = useState([]);
+    const [latest, setLatest] = useState({});
+
+    const fetchPopular = async () => {
+        fetch(`${url}/movie/popular?api_key=${apiKey}`)
+            .then((response) => response.json())
+            .then((json) => {
+                setResults(json.
+                    results);
+                setIsLoading(false);
+                console.log(json.
+                    results);
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
+
+    const fetchLatest = async () => {
+        fetch(`${url}/movie/latest?api_key=${apiKey}`)
+            .then((response) => response.json())
+            .then((json) => {
+                setLatest(json);
+                setIsLoading(false);
+                console.log(json);
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
+
+
+    useEffect(() => {
+        fetchPopular();
+        fetchLatest();
+    }
+        , []);
+
+    return (
+        <>
+            {
+                (!isLoading) ? (
+                    <View style={styles.container}>
+                        <View style={styles.nowShowing}>
+                            <Text style={styles.sectionTitle}>Latest Movie</Text>
+                            <View style={styles.nowShowingContent}>
+                                <MovieCard movie={latest} />
+                            </View>
+                        </View>
+                        <View style={styles.popular}>
+                            <Text style={styles.sectionTitle}>Popular Movies</Text>
+                            <View style={styles.popularContent}>
+                                <FlatList data={results}
+                                    renderItem={({ item }) => <MovieCardAlt movie={item} />}
+                                />
+                            </View>
+                        </View>
+                    </View>
+                ) : (
+                    <View style={styles.loader}>
+                        <Spinner />
+                    </View>
+                )
+            }
+        </>
+
     );
 }
 
@@ -120,6 +83,12 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingHorizontal: 15,
     },
+    loader: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.WHITE,
+    },
     appBar: {
         flex: 0.1,
         flexDirection: 'row',
@@ -128,7 +97,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     nowShowing: {
-        flex: 0.4,
+        flex: 0.3,
         marginBottom: 10,
     },
     sectionTitle: {
@@ -142,7 +111,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     popular: {
-        flex: 0.6,
+        flex: 0.7,
     },
     popularContent: {
         flex: 1,

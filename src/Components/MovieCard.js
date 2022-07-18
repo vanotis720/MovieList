@@ -10,14 +10,13 @@ const width = Dimensions.get("window").width;
 const MovieCard = ({ movie }) => {
 
     const navigation = useNavigation();
-
     const poster = (movie.poster_path) ? 'http://image.tmdb.org/t/p/w500/' + movie.poster_path : 'https://source.unsplash.com/random/500x250';
 
     return (
         <TouchableOpacity
             style={styles.movie}
             onPress={() => {
-                navigation.navigate("MovieDetail", { movie });
+                navigation.navigate("MovieDetail", { id: movie.id });
             }
             }>
             <Image source={{ uri: poster }} style={styles.moviePoster} />

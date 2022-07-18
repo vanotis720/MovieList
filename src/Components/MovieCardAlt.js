@@ -4,16 +4,20 @@ import Colors from "../utilities/Color";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { formatMinutesToHours } from "../helpers/cast";
 import { excerpt } from "../helpers/string";
+import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 const MovieCardAlt = ({ movie }) => {
+
+    const navigation = useNavigation();
+
     return (
         <TouchableOpacity
             style={styles.movie}
             onPress={() => {
-                alert("MovieCardAlt: " + movie.title);
+                navigation.navigate("MovieDetail", { id: movie.id });
             }
             }>
             <Image source={{ uri: 'http://image.tmdb.org/t/p/w500/' + movie.poster_path }} style={styles.moviePoster} />

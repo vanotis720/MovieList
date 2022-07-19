@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity } from "rea
 import Colors from "../utilities/Color";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from "@react-navigation/native";
+import { excerpt } from "../helpers/string";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -21,7 +22,7 @@ const MovieCard = ({ movie }) => {
             }>
             <Image source={{ uri: poster }} style={styles.moviePoster} />
             <View style={styles.titleCover}>
-                <Text style={styles.movieTitle}>{movie.title}</Text>
+                <Text style={styles.movieTitle}>{excerpt(movie.title, 25)}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         left: 20,
+        right: 20,
         backgroundColor: Colors.WHITE,
         opacity: 1,
         borderRadius: 5,

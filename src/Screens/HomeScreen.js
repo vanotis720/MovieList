@@ -5,6 +5,7 @@ import MovieCard from "../Components/MovieCard";
 import MovieCardAlt from "../Components/MovieCardAlt";
 import { url, apiKey } from "../services/api";
 import Spinner from "../Components/Spinner";
+import context from "../Context/context";
 
 const HomeScreen = ({ navigation }) => {
 
@@ -19,8 +20,6 @@ const HomeScreen = ({ navigation }) => {
                 setResults(json.
                     results);
                 setIsLoading(false);
-                console.log(json.
-                    results);
             }).catch((error) => {
                 console.error(error);
             });
@@ -32,7 +31,6 @@ const HomeScreen = ({ navigation }) => {
             .then((json) => {
                 setLatest(json);
                 setIsLoading(false);
-                console.log(json);
             }).catch((error) => {
                 console.error(error);
             });

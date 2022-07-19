@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import Colors from "../utilities/Color";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { formatMinutesToHours } from "../helpers/cast";
 import Spinner from "../Components/Spinner";
 import { apiKey, url } from "../services/api";
+import context from "../Context/context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const { width, height } = Dimensions.get("window");
@@ -15,9 +17,7 @@ const FilmScreen = ({ route, navigation }) => {
     const { id } = route.params;
     const [isLoading, setIsLoading] = useState(true);
     const [result, setResult] = useState([]);
-
-    console.log(id);
-    console.log(route.params);
+    const { favorites, addFavorite, removeFavorite } = React.useContext(context);
 
     const fetchDetail = async () => {
         fetch(`${url}/movie/${id}?api_key=${apiKey}`)
@@ -25,18 +25,34 @@ const FilmScreen = ({ route, navigation }) => {
             .then((json) => {
                 setResult(json);
                 setIsLoading(false);
-                console.log(json);
             }).catch((error) => {
                 console.error(error);
             });
     }
 
+    const checkFavorite = () => {
+        return favorites.some(item => item.favorite.id == result.id);
+    }
+
+    const addFavoriteHandler = () => {
+        addFavorite(result);
+        console.log("add new" + result.id);
+    }
+
+    const removeFavoriteHandler = () => {
+        removeFavorite(result.id);
+        console.log("remove favorites", result.id);
+    }
+
     useEffect(() => {
         fetchDetail();
+        return () => {
+            AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+        }
     }
-        , []);
+        , [favorites]);
 
-    console.log(result);
+
     const poster = (result.backdrop_path) ? 'http://image.tmdb.org/t/p/w500/' + result.backdrop_path : 'https://source.unsplash.com/random/500x250';
 
     return (
@@ -47,7 +63,7 @@ const FilmScreen = ({ route, navigation }) => {
                         <StatusBar style="auto" />
                         <View style={styles.cover}>
                             <Image source={{ uri: poster }} style={styles.poster} />
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={styles.iconPlay}
                                 onPress={() => {
                                     // 
@@ -55,14 +71,14 @@ const FilmScreen = ({ route, navigation }) => {
                             >
                                 <MaterialCommunityIcons name="play-circle" size={50} color={Colors.WHITE} />
                                 <Text style={styles.iconPlayText}>Play Trailer</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <View style={styles.infoContainer}>
                             <View style={styles.titleContainer}>
                                 <View style={styles.titleSection}>
                                     <Text style={styles.resultTitle}>{result.title}</Text>
                                     <View style={styles.resultNote}>
-                                        <MaterialCommunityIcons name="star" size={20} color={Colors.YELLOW} />
+                                        <MaterialCommunityIcons name="star" size={22} color={Colors.BLUEBLACK} />
                                         <Text style={styles.resultNoteText}>{result.vote_average}/10</Text>
                                     </View>
                                 </View>
@@ -70,11 +86,20 @@ const FilmScreen = ({ route, navigation }) => {
                                     <TouchableOpacity
                                         style={styles.iconSave}
                                         onPress={() => {
-                                            alert("Pressed");
-                                        }
-                                        }
+                                            if (checkFavorite()) {
+                                                removeFavoriteHandler();
+                                            } else {
+                                                addFavoriteHandler();
+                                            }
+                                        }}
                                     >
-                                        <MaterialCommunityIcons name="bookmark-outline" size={30} color={Colors.BLACK} />
+                                        {
+                                            (checkFavorite()) ? (
+                                                <MaterialCommunityIcons name="heart" size={40} color={Colors.RED} />
+                                            ) : (
+                                                <MaterialCommunityIcons name="heart-outline" size={40} color={Colors.BLACK} />
+                                            )
+                                        }
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -170,7 +195,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     resultNoteText: {
-        fontSize: 12,
+        fontSize: 18,
         color: Colors.BLACK,
     },
     favoriSection: {

@@ -24,7 +24,7 @@ const MovieCardAlt = ({ movie }) => {
             <View style={styles.movieInfo}>
                 <Text style={styles.movieTitle}>{movie.title}</Text>
                 <View style={styles.movieNote}>
-                    <MaterialCommunityIcons name="star" size={15} color={Colors.YELLOW} />
+                    <MaterialCommunityIcons name="star" size={20} color={Colors.YELLOW} />
                     <Text style={styles.movieNoteText}>{movie.vote_average}/10</Text>
                 </View>
                 <Text style={styles.movieOverview}>{excerpt(movie.overview, 150)}</Text>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     },
     movieNoteText: {
         marginBottom: 5,
-        fontSize: 12,
+        fontSize: 16,
         color: Colors.BLACK,
     },
     movieOverview: {

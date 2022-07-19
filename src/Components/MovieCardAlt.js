@@ -28,10 +28,15 @@ const MovieCardAlt = ({ movie }) => {
                     <Text style={styles.movieNoteText}>{movie.vote_average}/10</Text>
                 </View>
                 <Text style={styles.movieOverview}>{excerpt(movie.overview, 150)}</Text>
-                {/* <View style={styles.movieNote}>
-                    <MaterialCommunityIcons name="clock" size={15} color={Colors.YELLOW} />
-                    <Text style={styles.movieNoteText}>{formatMinutesToHours(movie.runtime)}</Text>
-                </View> */}
+
+                {
+                    movie.homepage === "" ? (
+                        <View style={styles.movieNote}>
+                            <MaterialCommunityIcons name="clock" size={15} color={Colors.YELLOW} />
+                            <Text style={styles.movieNoteText}>{formatMinutesToHours(movie.runtime)}</Text>
+                        </View>
+                    ) : null
+                }
             </View>
         </TouchableOpacity>
     );

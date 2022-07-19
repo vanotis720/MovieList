@@ -28,7 +28,6 @@ const MovieCardAlt = ({ movie }) => {
                     <Text style={styles.movieNoteText}>{movie.vote_average}/10</Text>
                 </View>
                 <Text style={styles.movieOverview}>{excerpt(movie.overview, 150)}</Text>
-
                 {
                     movie.homepage === "" ? (
                         <View style={styles.movieNote}>

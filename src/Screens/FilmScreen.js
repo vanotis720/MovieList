@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 10,
         paddingVertical: 5,
-
     },
     resultTitle: {
         fontSize: 24,
@@ -208,6 +207,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: 10,
         paddingVertical: 10,
+        borderBottomWidth: 2,
+        borderBottomColor: Colors.BLACK,
+        borderTopColor: Colors.BLACK,
+        borderTopWidth: 2,
     },
     metaDataItem: {
         alignItems: "center",

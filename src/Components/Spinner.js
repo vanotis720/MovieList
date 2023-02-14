@@ -1,23 +1,27 @@
 import React from 'react';
-import { Platform, ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import Colors from '../utilities/Color';
 
-const Spinner = ({ style = {}, size = 50, color = Colors.BLUEBLACK }) => (
-    <View style={style}>
-        {Platform.OS === 'ios' ? (
-            <ActivityIndicator
-                testID="activity-indicator"
-                size="small"
-                color={color}
-            />
-        ) : (
-            <ActivityIndicator
-                testID="activity-indicator"
-                size={size}
-                color={color}
-            />
-        )}
+const Spinner = () => (
+    <View style={styles.loader}>
+        <ActivityIndicator size='large' color={Colors.RED} />
+        <Text style={styles.loaderText}>Nous récupérons les données...</Text>
     </View>
 );
+
+const styles = StyleSheet.create({
+    loader: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.WHITE,
+    },
+    loaderText: {
+        color: Colors.BLUEBLACK,
+        fontSize: 16,
+        fontWeight: '300',
+        marginTop: 10
+    },
+});
 
 export default Spinner;

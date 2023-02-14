@@ -17,5 +17,14 @@ export function formatSecondsToTime(time) {
 export function formatMinutesToHours(time) {
     const hours = Math.floor(time / 60);
     const minutes = time - hours * 60;
-    return `${hours}h:${minutes < 10 ? '0' : ''}${minutes}`;
+    return `${hours}h${minutes < 10 ? '0' : ''}${minutes}m`;
+}
+
+export function getYearOfDate(date) {
+    const d = new Date(date);
+    return d.getFullYear();
+}
+
+export function numberToK(number) {
+    return (number < 1000) ? number : ((number / 1000).toFixed(1) + 'k');
 }

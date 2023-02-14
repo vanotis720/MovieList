@@ -1,76 +1,56 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import Colors from "../utilities/Color";
 import MovieCard from "../Components/MovieCard";
 import MovieCardAlt from "../Components/MovieCardAlt";
 import { url, apiKey } from "../services/api";
 import Spinner from "../Components/Spinner";
 import context from "../Context/context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = ({ navigation }) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [results, setResults] = useState([]);
-    const [latest, setLatest] = useState({});
 
     const fetchPopular = async () => {
         fetch(`${url}/movie/popular?api_key=${apiKey}`)
             .then((response) => response.json())
             .then((json) => {
-                setResults(json.
-                    results);
+                let items = json.results;
+                items.sort(function (a, b) {
+                    return b.vote_average - a.vote_average;
+                });
+                setResults(items);
                 setIsLoading(false);
             }).catch((error) => {
                 console.error(error);
-            });
-    }
-
-    const fetchLatest = async () => {
-        fetch(`${url}/movie/latest?api_key=${apiKey}`)
-            .then((response) => response.json())
-            .then((json) => {
-                setLatest(json);
                 setIsLoading(false);
-            }).catch((error) => {
-                console.error(error);
             });
     }
-
 
     useEffect(() => {
         fetchPopular();
-        fetchLatest();
     }
         , []);
 
     return (
-        <>
+        <SafeAreaView style={styles.container}>
             {
                 (!isLoading) ? (
-                    <View style={styles.container}>
-                        <View style={styles.nowShowing}>
-                            <Text style={styles.sectionTitle}>Latest Movie</Text>
-                            <View style={styles.nowShowingContent}>
-                                <MovieCard movie={latest} />
-                            </View>
-                        </View>
-                        <View style={styles.popular}>
-                            <Text style={styles.sectionTitle}>Popular Movies</Text>
-                            <View style={styles.popularContent}>
-                                <FlatList data={results}
-                                    renderItem={({ item }) => <MovieCardAlt movie={item} />}
-                                />
-                            </View>
+                    <View style={styles.popular}>
+                        <Text style={styles.sectionTitle}>Films populaires</Text>
+                        <View style={styles.popularContent}>
+                            <FlatList data={results} showsVerticalScrollIndicator={false}
+                                renderItem={({ item }) => <MovieCardAlt movie={item} />}
+                            />
                         </View>
                     </View>
                 ) : (
-                    <View style={styles.loader}>
-                        <Spinner />
-                    </View>
+                    <Spinner />
                 )
             }
-        </>
-
+        </SafeAreaView>
     );
 }
 
@@ -78,20 +58,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,
-        paddingBottom: 10,
-        paddingHorizontal: 15,
-    },
-    loader: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.WHITE,
-    },
-    appBar: {
-        flex: 0.1,
-        flexDirection: 'row',
-        backgroundColor: Colors.WHITE,
-        justifyContent: 'space-between',
         paddingHorizontal: 20,
     },
     nowShowing: {
@@ -99,17 +65,17 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     sectionTitle: {
-        fontSize: 20,
+        fontSize: 22,
         color: Colors.BLUEBLACK,
-        marginHorizontal: 5,
         marginVertical: 10,
-        fontWeight: 'bold',
+        fontWeight: '700',
+        textAlign: 'center',
     },
     nowShowingContent: {
         flex: 1,
     },
     popular: {
-        flex: 0.7,
+        flex: 1,
     },
     popularContent: {
         flex: 1,

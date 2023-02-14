@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
 import Colors from "../utilities/Color";
 import MovieCardAlt from "../Components/MovieCardAlt";
 import context from "../Context/context";
+import { AntDesign } from '@expo/vector-icons';
 
 
 const FavoriteScreen = () => {
@@ -23,8 +24,13 @@ const FavoriteScreen = () => {
                             />
                         ) : (
                             <View style={styles.noFavotite}>
-                                <Image source={require('../../assets/icon.png')} style={styles.noFavotiteImage} />
-                                <Text style={styles.noFavotiteText}> No favorite yet </Text>
+                                <Image source={require('../../assets/icon/undraw_Web_search_re_efla.png')} style={styles.noFavotiteImage} />
+                                <View style={styles.noFavotiteTextContainer}>
+                                    <Text style={styles.noFavotiteText}>Aucun favori pour l'instant</Text>
+                                    <Text style={styles.noFavotiteTextDescription}>
+                                        Vous pouvez ajouter un film a vos favoris en appuyant sur l'icon <AntDesign name="heart" size={16} color={Colors.RED} /> dans les details d'un film.
+                                    </Text>
+                                </View>
                             </View>
                         )
                     }
@@ -54,17 +60,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: Colors.BLUEBLACK,
     },
+    noFavotiteImage: {
+        resizeMode: 'contain',
+        height: '50%',
+    },
+    noFavotiteTextContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10
+    },
     noFavotiteText: {
         color: Colors.BLUEBLACK,
-        fontSize: 32,
-        fontWeight: 'bold',
+        fontSize: 30,
+        fontWeight: '700',
         textAlign: 'center',
     },
-    noFavotiteImage: {
-        width: 120,
-        height: 120,
-        marginBottom: 20,
-    },
+    noFavotiteTextDescription: {
+        color: Colors.BLACK,
+        fontSize: 16,
+        fontWeight: '300',
+        marginVertical: 10,
+        textAlign: 'center'
+    }
+
 });
 
 export default FavoriteScreen;

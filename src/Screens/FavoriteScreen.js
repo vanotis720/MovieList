@@ -5,14 +5,15 @@ import Colors from "../utilities/Color";
 import MovieCardAlt from "../Components/MovieCardAlt";
 import context from "../Context/context";
 import { AntDesign } from '@expo/vector-icons';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const FavoriteScreen = () => {
     const { favorites } = React.useContext(context);
 
     return (
-        <View style={styles.container}>
-            <StatusBar style="white" />
+        <SafeAreaView style={styles.container}>
+            <StatusBar style="auto" />
             <View style={styles.popular}>
                 <View style={styles.popularContent}>
                     {
@@ -36,7 +37,7 @@ const FavoriteScreen = () => {
                     }
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

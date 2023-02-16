@@ -83,7 +83,7 @@ const FilmScreen = ({ route, navigation }) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar style="auto" />
+            <StatusBar style="light" />
             {
                 (!isLoading) ? (
                     <>
@@ -117,15 +117,14 @@ const FilmScreen = ({ route, navigation }) => {
                                     }
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={styles.iconPlay}
                                 onPress={() => {
                                     // 
                                 }}
                             >
                                 <MaterialCommunityIcons name="play-circle" size={height / 10} color={Colors.RED} />
-                                {/* <Text style={styles.iconPlayText}>Jouer la bande-annonce</Text> */}
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                         <ScrollView style={styles.infoContainer}>
                             <View style={styles.metaDataContainer}>
@@ -141,9 +140,13 @@ const FilmScreen = ({ route, navigation }) => {
                                     </View>
                                 </View>
                                 <View style={styles.genreContainer}>
-                                    {result.genres.map((genre) => {
-                                        return (<Text id={genre.id} style={styles.genre}>{genre.name}</Text>)
-                                    })}
+                                    {
+                                        (result.genres) ? (
+                                            result.genres.map((genre) => {
+                                                return (<Text key={genre.id} style={styles.genre}>{genre.name}</Text>)
+                                            })
+                                        ) : null
+                                    }
                                 </View>
                             </View>
                             <View style={styles.descriptionContainer}>
@@ -238,12 +241,13 @@ const styles = StyleSheet.create({
     },
     genreContainer: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap'
     },
     genre: {
         paddingHorizontal: 10,
         paddingVertical: 5,
-        marginHorizontal: 5,
+        margin: 5,
         backgroundColor: Colors.BLUEBLACK,
         color: Colors.WHITE,
         alignSelf: 'center',

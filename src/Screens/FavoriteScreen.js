@@ -13,7 +13,7 @@ const FavoriteScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar style="auto" />
+            <StatusBar style="dark" />
             <View style={styles.popular}>
                 <View style={styles.popularContent}>
                     {

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MovieList",
-    "slug": "MovieList",
+    "name": "Films populaires",
+    "slug": "Films populaires movielist movies",
     "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#FF0000"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

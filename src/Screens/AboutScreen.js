@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext } from "react";
+import React from "react";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants"
-import Colors from "../utilities/Color";
 import { AntDesign } from '@expo/vector-icons';
 import { A } from '@expo/html-elements';
 import { SafeAreaView } from "react-native-safe-area-context";
+import Colors from "../utilities/Color";
 
 const { width, height } = Dimensions.get("window");
 
@@ -16,7 +16,7 @@ const AboutScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar style="auto" />
+            <StatusBar style="dark" />
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require('../../assets/icon_removebg.png')} />
                 <Text style={styles.AppName}>Films populaires V{version} </Text>
@@ -40,7 +40,7 @@ const AboutScreen = () => {
                     <A style={styles.linkContainerItemLink} href="https://www.instagram.com/vanotis720/">@Vander Otis</A>
                 </View>
                 <View style={styles.privacyContainer}>
-                    <A style={styles.privacyLink} href="">Notre politique de confidentialité</A>
+                    <A style={styles.privacyLink} href="https://www.privacypolicies.com/live/ba1afd62-3134-49a6-b601-0091554de3cf">Notre politique de confidentialité</A>
                     <AntDesign name="doubleright" size={18} color="#4285f4" />
                 </View>
             </View>
@@ -51,7 +51,8 @@ const AboutScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: 30
+        paddingHorizontal: 30,
+        backgroundColor: Colors.WHITE,
     },
     logoContainer: {
         justifyContent: 'center',

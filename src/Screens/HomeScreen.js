@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Colors from "../utilities/Color";
-import MovieCard from "../Components/MovieCard";
 import MovieCardAlt from "../Components/MovieCardAlt";
 import { url, apiKey } from "../services/api";
 import Spinner from "../Components/Spinner";
-import context from "../Context/context";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from 'expo-status-bar';
+
 
 const HomeScreen = ({ navigation }) => {
 
@@ -36,6 +36,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar style="dark" />
             {
                 (!isLoading) ? (
                     <View style={styles.popular}>
